@@ -1,0 +1,16 @@
+task_name: "资产收货更新"
+files:
+  - file_path: "C:\\Users\\Administrator\\Desktop\\py\\VFS IT Inventory Guangzhou 2026.xlsx"
+    sheet_name: "all"           # 设为 "all" 则搜索所有工作表，否则写具体名称
+    header_row: 1               # 标题行号（仅当用标题定位时需要）
+    data_start_row: 2           # 数据起始行
+    operations:
+      - match_column: "N"       # 按列号查找，G列（即 Serial No. 所在的列）
+        match_value_from: "input"  # 匹配值来自命令行参数
+        updates:
+          - column: "U"         # 目标列号（Status of Machine 所在列）
+            new_value: "In Use"
+            condition: "always"
+          - column: "AC"        # 备注列（AB列 = 第28列）
+            new_value: "Transferred from"
+            condition: "is_empty"
