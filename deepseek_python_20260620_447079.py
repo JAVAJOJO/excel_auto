@@ -14,38 +14,43 @@ from openpyxl.utils import column_index_from_string
 # ===================== 配置区 =====================
 FILE_CONFIGS = {
     "asset": {
-        "path": Path(r"C:\Users\itsupport_gz\OneDrive - VFSGlobal\China IT Asset - General\Inventory\IT Asset Tagging Tracker\South China\Guangzhou\VFS IT Inventory Guangzhou 2026.xlsx"),
+        "path": Path(r"C:\Users\Administrator\Desktop\py\VFS IT Inventory Guangzhou 2026.xlsx"),
+        "sheet": "all",        # "all" 搜索所有工作表，或具体名称
+        "header_row": 1        # 标题行号（Excel行号）
+    },
+    "receive": {
+        "path": Path(r"C:\Users\Administrator\Desktop\py\Asset ID Status_FAR.xlsx"),
         "sheet": "all",
         "header_row": 2
     },
-    "receive": {
-        "path": Path("2.xlsx"),
-        "sheet": "all",
-        "header_row": 1
-    },
     "spare": {
-        "path": Path("Spare.xlsx"),
+        "path": Path(r"C:\Users\Administrator\Desktop\py\China Spare Asset.xlsx"),
         "sheet": "all",
         "header_row": 1
     }
+    # 添加更多文件只需复制上面的块
 }
 
+
+# ---------- 字段映射 ----------
+# 键：字段别名（用于命令行参数）
+# 值：列表，每个元素是一个 (文件别名, 列字母) 元组
+#      表示该字段在指定文件的哪一列（可以跨多个文件）
 FIELD_MAP = {
     "serial": [
-        ("asset", "N"),
-        ("receive", "G"),
-        ("spare", "M")
+        ("asset", "N"),       # 资产表的 N 列是序列号
+        ("receive", "G"),     # 收货表的 G 列
+        ("spare", "M")        # spare 表的 M 列
     ],
     "fin_asset": [
-        ("asset", "AF"),
+        ("asset", "O"),      # 资产表的 AF 列是财务资产编号（示例）
+        ("receive", "L"),     # 收货表的 G 列
     ],
     "global_asset": [
-        ("asset", "AG"),
-    ],
-    "hostname": [
-        ("asset", "C"),
-        ("spare", "D")
+        ("asset", "P"),      # 全球资产编号
+        ("receive", "P"),     # 收货表的 G 列
     ]
+    # 自由扩展
 }
 # =================================================
 
